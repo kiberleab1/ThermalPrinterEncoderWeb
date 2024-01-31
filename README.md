@@ -494,7 +494,6 @@ For example:
         .rule({ style: 'double' })
         .encode()
 
-
 ### Barcode
 
 Print a barcode of a certain symbology. The first parameter is the value of the barcode as a string, the second is the symbology and finally the height of the barcode.
@@ -654,7 +653,6 @@ Add raw printer commands, in case you want to send a command that this library d
     let result = encoder
         .raw([ 0x1c, 0x2e ])
         .encode()
-
 
 _Please be aware that raw printer commands are language specific. Depending on the language your printer supports you may need to send different commands._
 

@@ -6,18 +6,23 @@ import StarPrntEncoder from 'star-prnt-encoder';
  */
 class ThermalPrinterEncoder {
   /**
-     * Create a new object
-     *
-     * @param  {object}   options   Object containing configuration options
-     */
+   * Create a new object
+   *
+   * @param  {object}   options   Object containing configuration options
+   */
   constructor(options) {
     const languages = {
       'esc-pos': EscPosEncoder,
       'star-prnt': StarPrntEncoder,
     };
 
-    if (typeof options === 'undefined' || typeof options.language === 'undefined') {
-      throw new Error('You need to specify the language of the thermal printer');
+    if (
+      typeof options === 'undefined' ||
+      typeof options.language === 'undefined'
+    ) {
+      throw new Error(
+        'You need to specify the language of the thermal printer'
+      );
     }
 
     if (typeof languages[options.language] === 'undefined') {
