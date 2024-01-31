@@ -4,10 +4,10 @@
     "description": "Create a set of commands that can be send to any receipt printer that supports ESC/POS or StarPRNT",
     "type": "module",
     "exports": {
-        "browser": {
+        ".": {
             "import": "./dist/thermal-printer-encoder.esm.js",
             "require": "./dist/thermal-printer-encoder.umd.js",
-            "script": "./dist/thermal-printer-encoder.umd.js"
+            "default": "./dist/thermal-printer-encoder.cjs"
         }
     },
     "main": "dist/thermal-printer-encoder.cjs",
