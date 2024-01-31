@@ -1,5 +1,7 @@
 # ThermalPrinterEncoder
 
+This is a nock of ThermalPrinterEncoder https://github.com/NielsLeenheer/ThermalPrinterEncoder All Credit goes too
+
 Create a set of commands that can be send to any receipt printer that supports ESC/POS or StarPRNT
 
 ## Usage
@@ -10,7 +12,7 @@ This package is compatible with browsers and Node. It provides bundled versions 
 
 The `dist` folder contains a UMD bundle that can be loaded using RequireJS or simply using a `<script>` tag. Alternatively there is a bundled ES6 module that can be imported.
 
-For example: 
+For example:
 
 In the browser you can import `ThermalPrinterEncoder` from the `thermal-printer-encoder.esm.js` file located in the `dist` folder.
 
@@ -25,8 +27,7 @@ In the browser you can import `ThermalPrinterEncoder` from the `thermal-printer-
         .qrcode('https://nielsleenheer.com')
         .encode();
 
-
-Alternatively you can load the `thermal-printer-encoder.umd.js` file located in the `dist` folder and instantiate a `ThermalPrinterEncoder` object. 
+Alternatively you can load the `thermal-printer-encoder.umd.js` file located in the `dist` folder and instantiate a `ThermalPrinterEncoder` object.
 
     <script src='dist/thermal-printer-encoder.umd.js'></script>
 
@@ -69,19 +70,19 @@ Alternatively you could use the CommonJS way of doing things and require the pac
 
 ## Options
 
-When you create the `ThermalPrinterEncoder` object you can specify a number of options to help with the library with generating receipts. 
+When you create the `ThermalPrinterEncoder` object you can specify a number of options to help with the library with generating receipts.
 
 ### Printer language
 
 It is possible to specify the language of the printer you want to use by providing a options object with the property 'language' set to either 'esc-pos' or to 'star-prtn'. To use the ESC/POS language use:
 
-    let encoder = new ThermalPrinterEncoder({ 
+    let encoder = new ThermalPrinterEncoder({
         language: 'esc-pos'
     });
 
 Or for StarPRNT use:
 
-    let encoder = new ThermalPrinterEncoder({ 
+    let encoder = new ThermalPrinterEncoder({
         language: 'star-prnt'
     });
 
@@ -97,7 +98,6 @@ If you use 57mm wide paper, it allows you to print up to 32 or 35 characters hor
 
 If you use 80mm wide paper, it allows you to print up to 42 or 48 characters horizontally, depending on the resolution of the printer.
 
-
 ## Word wrap
 
 If you want text to automatically word wrap at the edge of the paper you can turn on `wordWrap`. If you use this option you also must specify a paper width using the `width` property.
@@ -107,10 +107,9 @@ If you want text to automatically word wrap at the edge of the paper you can tur
         wordWrap:   true
     });
 
-
 ## Commands
 
-You can reuse the instantiated `ThermalPrinterEncoder` class to generate multiple commands or sets of commands for the same printer. It will remember settings like code page, so you don't have to specify that on subsequent use. That does rely on that previous commands were actually send to the printer. 
+You can reuse the instantiated `ThermalPrinterEncoder` class to generate multiple commands or sets of commands for the same printer. It will remember settings like code page, so you don't have to specify that on subsequent use. That does rely on that previous commands were actually send to the printer.
 
 All commands can be chained, except for `encode()` which will return the result as an Uint8Array which contains all the bytes that need to be send to the printer.
 
@@ -126,9 +125,9 @@ Properly initialize the printer, which means text mode is enabled and settings l
 
 ### Codepage
 
-Set the code page of the printer. Receipt printers don't support UTF-8 or any other unicode encoding, instead the rely on legacy code pages. 
+Set the code page of the printer. Receipt printers don't support UTF-8 or any other unicode encoding, instead the rely on legacy code pages.
 
-If you specify the code page, it will send a command to the printer to enable that particular code page and from then on it will automatically encode all text string to that code page. 
+If you specify the code page, it will send a command to the printer to enable that particular code page and from then on it will automatically encode all text string to that code page.
 
 If you don't specify a code page, it will assume you want to print only ASCII characters and strip out any others.
 
@@ -145,9 +144,9 @@ The following code pages are supported for StarPRNT printers: cp437, cp858, cp85
 
 #### Printer support
 
-Support for one specific code pages is not only dependant on this library, even more important is that the printer understands it. And support for code pages depend on manufacturer and model. Some only support a few, some support most of these. There are probably no printers that support all of them. 
+Support for one specific code pages is not only dependant on this library, even more important is that the printer understands it. And support for code pages depend on manufacturer and model. Some only support a few, some support most of these. There are probably no printers that support all of them.
 
-Before choosing a code page, check the technical manual of your printer which codepages are supported. If your printer does not support a code page that you need, you are out of luck and nothing this library does can help you solve this problem. 
+Before choosing a code page, check the technical manual of your printer which codepages are supported. If your printer does not support a code page that you need, you are out of luck and nothing this library does can help you solve this problem.
 
 #### Advanced text compositing
 
@@ -159,13 +158,13 @@ When using the ESC/POS langauge this library uses the Epson code page mappings a
 
 You can activate these alternative mappings with a parameter when the library is instantiated:
 
-    let encoder = new ThermalPrinterEncoder({ 
-        codepageMapping: 'bixolon' 
+    let encoder = new ThermalPrinterEncoder({
+        codepageMapping: 'bixolon'
     });
 
 If you want to use a code page mapping that is specific to your printer, you can also specify an object with the correct mappings:
 
-    let encoder = new ThermalPrinterEncoder({ 
+    let encoder = new ThermalPrinterEncoder({
         codepageMapping: {
             'cp437': 0x00,
             'cp850': 0x02,
@@ -174,16 +173,16 @@ If you want to use a code page mapping that is specific to your printer, you can
             'cp865': 0x05,
             'cp851': 0x0b,
             'cp858': 0x13,
-        } 
+        }
     });
 
-Each property name must be one of the code pages supported by this library and the value is the number which is used for that code page on your printer. 
+Each property name must be one of the code pages supported by this library and the value is the number which is used for that code page on your printer.
 
 If you use the StarPRNT language, you do not need to specify a `codepageMapping`.
 
 #### Auto encoding
 
-It is also possible to enable auto encoding of code pages. The library will then automatically switch between code pages depending on the text that you want to print. 
+It is also possible to enable auto encoding of code pages. The library will then automatically switch between code pages depending on the text that you want to print.
 
     let result = encoder
         .codepage('auto')
@@ -201,7 +200,7 @@ Or even mix code pages within the same text:
 
 By default the library only considers some of the most common code pages when detecting the right code page for each letter. If you want to add another code page candidate or remove on, because it is not supported by your printer, you can. You can customize the candidate code pages by setting an option during instantiation of the library:
 
-    let encoder = new ThermalPrinterEncoder({ 
+    let encoder = new ThermalPrinterEncoder({
         codepageCandidates: [
             'cp437', 'cp858', 'cp860', 'cp861', 'cp863', 'cp865',
             'cp852', 'cp857', 'cp855', 'cp866', 'cp869',
@@ -256,7 +255,7 @@ An optional parameter turns on word wrapping. To enable this, specify the maximu
 
 ### Underline
 
-Change the text style to underline. 
+Change the text style to underline.
 
     let result = encoder
         .text('This is ')
@@ -276,7 +275,7 @@ It will try to remember the current state of the text style. But you can also pr
 
 ### Bold
 
-Change the text style to bold. 
+Change the text style to bold.
 
     let result = encoder
         .text('This is ')
@@ -296,7 +295,7 @@ It will try to remember the current state of the text style. But you can also pr
 
 ### Italic
 
-Change the text style to italic. 
+Change the text style to italic.
 
     let result = encoder
         .text('This is ')
@@ -318,7 +317,7 @@ Note: this text style is not supported by most ESC/POS receipt printers and not 
 
 ### Invert
 
-Change the style to white text on a black background. 
+Change the style to white text on a black background.
 
     let result = encoder
         .text('This is ')
@@ -409,7 +408,7 @@ Insert a table with multiple columns. The contents of each cell can be a string,
             [
                 { width: 36, marginRight: 2, align: 'left' },
                 { width: 10, align: 'right' }
-            ], 
+            ],
             [
                 [ 'Item 1', '€ 10,00' ],
                 [ 'Item 2', '15,00' ],
@@ -419,15 +418,15 @@ Insert a table with multiple columns. The contents of each cell can be a string,
                 [ '', '='.repeat(10) ],
                 [ 'Total', (encoder) => encoder.bold().text('€ 250,75').bold() ],
             ]
-        )	
+        )
         .encode()
 
-The table function takes two parameters. 
+The table function takes two parameters.
 
 The first parameter is an array of column definitions. Each column can have the folowing properties:
 
-- `width`:  determines the width of the column. 
-- `marginLeft` and `marginRight`: set a margin to the left and right of the column. 
+- `width`: determines the width of the column.
+- `marginLeft` and `marginRight`: set a margin to the left and right of the column.
 - `align`: sets the horizontal alignment of the text in the column and can either be `left` or `right`.
 - `verticalAlign`: sets the vertical alignment of the text in the column and can either be `top` or `bottom`.
 
@@ -443,22 +442,21 @@ Each row is an array with a value for each cell. The number of cells in each row
         [ 'Cell three', 'Cell four' ]
     ]
 
-The value can either be a string or a callback function. 
+The value can either be a string or a callback function.
 
 If you want to style text inside of a cell, can use the callback function instead. The first parameter of the called function contains the encoder object which you can use to chain additional commands.
 
     [
         /* Row one, with two columns */
-        [ 
+        [
             'Cell one',
             (encoder) => encoder.bold().text('Cell two').bold()
         ],
     ]
 
-
 ### Box
 
-Insert a bordered box. 
+Insert a bordered box.
 
 The first parameter is an object with additional configuration options.
 
@@ -476,11 +474,10 @@ For example:
 
     let result = encoder
         .box(
-            { width: 30, align: 'right', style: 'double', marginLeft: 10 }, 
+            { width: 30, align: 'right', style: 'double', marginLeft: 10 },
             'The quick brown fox jumps over the lazy dog
         )
         .encode()
-
 
 ### Rule
 
@@ -494,9 +491,9 @@ The first parameters is an object with additional styling options:
 For example:
 
     let result = encoder
-        .rule({ style: 'double' })  
+        .rule({ style: 'double' })
         .encode()
-        
+
 
 ### Barcode
 
@@ -510,7 +507,7 @@ The following symbologies can be used for StarPRNT: 'upce', 'nw-7'
 
 _Just because the symbology is suppored by this library does not mean that the printer will actually support it. If the symbology is not supported, the barcode will simply not be printed, or the raw data will be printed instead, depending on the model and manufacturer of the printer._
 
-In general the printer will automatically calculate the checksum if one is not provided. If one is provided in the data, it will not check the checksum. If you provide the checksum yourself and it is not correctly calculated, the behaviour is not defined. It may calculate the correct checksum use that instead or print an invalid barcode. 
+In general the printer will automatically calculate the checksum if one is not provided. If one is provided in the data, it will not check the checksum. If you provide the checksum yourself and it is not correctly calculated, the behaviour is not defined. It may calculate the correct checksum use that instead or print an invalid barcode.
 
 For example with the checksum provided in the data:
 
@@ -528,22 +525,22 @@ Both examples above should result in the same barcode being printed.
 
 Furthermore, depending on the symbology the data must be handled differently:
 
-| Symbology | Length | Characters |
-|-|-|-|
-| upca | 11 - 12 | 0 - 9 |
-| ean8 | 7 - 8 | 0 - 9 |
-| ean13 | 12 - 13 | 0 - 9 |
-| code39 | >= 1 | 0 - 9, A - Z, space, or $ % * + - . / |
-| itf | >= 2 (even) | 0 - 9 |
-| codabar | >= 2 | 0 - 9, A - D, a - d, or $ + − . / : |
-| code93 | 1 - 255 | ASCII character (0 - 127) |
-| code128 | 1 - 253 | ASCII character (32 - 127) |
+| Symbology | Length      | Characters                             |
+| --------- | ----------- | -------------------------------------- |
+| upca      | 11 - 12     | 0 - 9                                  |
+| ean8      | 7 - 8       | 0 - 9                                  |
+| ean13     | 12 - 13     | 0 - 9                                  |
+| code39    | >= 1        | 0 - 9, A - Z, space, or $ % \* + - . / |
+| itf       | >= 2 (even) | 0 - 9                                  |
+| codabar   | >= 2        | 0 - 9, A - D, a - d, or $ + − . / :    |
+| code93    | 1 - 255     | ASCII character (0 - 127)              |
+| code128   | 1 - 253     | ASCII character (32 - 127)             |
 
-The Code 128 symbology specifies three different code sets which contain different characters. For example: CODE A contains ASCII control characters, special characters, digits and uppercase letters. CODE B contains special characters, digits, uppercase letters and lowercase letters. CODE C prints 2 digits numbers that correspond to the ASCII value of the letter.  
+The Code 128 symbology specifies three different code sets which contain different characters. For example: CODE A contains ASCII control characters, special characters, digits and uppercase letters. CODE B contains special characters, digits, uppercase letters and lowercase letters. CODE C prints 2 digits numbers that correspond to the ASCII value of the letter.
 
 By default Code 128 uses CODE B. It is possible to use a different code set, by using the code set selector character { followed by the uppercase letter of the character set.
 
-For example with the default CODE B set: 
+For example with the default CODE B set:
 
     let result = encoder
         .barcode('CODE128 test', 'code128', 60)
@@ -567,8 +564,6 @@ The printed barcode will be 50859935.
 
 All of the other symbologies require even more complicated encoding specified in the Espon ESC/POS printer language specification. To use these other symbologies you need to encode these barcodes yourself.
 
-
-
 ### Qrcode
 
 Print a QR code. The first parameter is the data of the QR code.
@@ -579,9 +574,9 @@ Print a QR code. The first parameter is the data of the QR code.
 
 The qrcode function accepts the following additional parameters:
 
-- *model* - a number that can be 1 for Model 1 and 2 for Model 2
-- *size* - a number that can be between 1 and 8 for determining the size of the QR code
-- *errorlevel* - a string that can be either 'l', 'm', 'q' or 'h'.
+- _model_ - a number that can be 1 for Model 1 and 2 for Model 2
+- _size_ - a number that can be between 1 and 8 for determining the size of the QR code
+- _errorlevel_ - a string that can be either 'l', 'm', 'q' or 'h'.
 
 For example:
 
@@ -591,12 +586,11 @@ For example:
 
 _Not all printers support printing QR codes. If the printer does not support it, the QR code will simply not be printed, or the raw data will be printed instead, depending on the model and manufacturer of the printer._
 
-
 ### Image
 
 Print an image. The image is automatically converted to black and white and can optionally be dithered using different algorithms.
 
-The first parameter is the image itself. When running in the browser it can be any element that can be drawn onto a canvas, like an img, svg, canvas and video elements. When on Node it can be a Canvas provided by the `canvas` package. 
+The first parameter is the image itself. When running in the browser it can be any element that can be drawn onto a canvas, like an img, svg, canvas and video elements. When on Node it can be a Canvas provided by the `canvas` package.
 
 The second parameter is the width of the image on the paper receipt in pixels. It must be a multiple of 8.
 
@@ -608,7 +602,7 @@ The fifth paramter is the threshold that will be used by the threshold and bayer
 
     let img = new Image();
     img.src = 'https://...';
-    
+
     img.onload = function() {
         let result = encoder
             .image(img, 320, 320, 'atkinson')
@@ -621,14 +615,13 @@ If you use the ESC/POS langauge, depending on how new your printer is you might 
 
 To opt in to 'raster' mode you need to provide the constructor of the `ThermalPrinterEncoder` class with an options object with the property `imageMode` set to `raster`.
 
-    let encoder = new ThermalPrinterEncoder({ 
-        imageMode: 'raster' 
+    let encoder = new ThermalPrinterEncoder({
+        imageMode: 'raster'
     });
-
 
 ### Pulse
 
-Send a pulse to an external device, such as a beeper or cash drawer. 
+Send a pulse to an external device, such as a beeper or cash drawer.
 
     let result = encoder
         .pulse()
@@ -646,7 +639,7 @@ The third parameter is how long there should be a delay after the pulse has been
 
 ### Cut
 
-Cut the paper. Optionally a parameter can be specified which can be either be "partial" or "full". If not specified, a full cut will be used. 
+Cut the paper. Optionally a parameter can be specified which can be either be "partial" or "full". If not specified, a full cut will be used.
 
     let result = encoder
         .cut('partial')
@@ -661,10 +654,9 @@ Add raw printer commands, in case you want to send a command that this library d
     let result = encoder
         .raw([ 0x1c, 0x2e ])
         .encode()
-        
+
 
 _Please be aware that raw printer commands are language specific. Depending on the language your printer supports you may need to send different commands._
-
 
 ## License
 
